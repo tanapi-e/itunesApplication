@@ -1,11 +1,11 @@
 <script>
 import Loading from '@/components/Loading'
 import axios from 'axios';
+import {mapActions, mapState} from 'vuex'
 
 export default {
     data () {
         return {
-            params: [],
             delParams: []
         }
     },
@@ -13,15 +13,19 @@ export default {
     components: {
         Loading
     },
-    created: function () {
-        // DBから値取得
-        axios.get('http://localhost:8888/api/song').then((res) => {
-            this.params = res.data.posts;
-        }).catch((err) => {
-
-        });
+    computed: {
+        ...mapState({
+            params: state => state.lists,
+        })
+    },
+    mounted() {
+        this.getSongs();
     },
     methods: {
+        ...mapActions({
+            getSongs: 'getSongs',
+            delSong: 'delSong'
+        }),
         clickDelete (delData, id) {
             // アラート表示
             if (confirm('削除しますか？')) {
@@ -29,16 +33,12 @@ export default {
                 for (let key in delData) {
                     // 選択した楽曲のidがDBから取ってきたidと一致している時
                     if (id == delData[key].id) {
+                        // 削除する楽曲を設定
                         this.delParams = delData[key];
                     }
                 }
-
-                // 削除処理
-                axios.delete('http://localhost:8888/api/song/' + id, {data: this.delParams}).then((res) => {
-                    alert('削除しました。');
-                }).catch((err) => {
-                    alert('削除できませんでした。');
-                });
+                // 削除処理実行
+                this.delSong(this.delParams);
             }
         }
     }

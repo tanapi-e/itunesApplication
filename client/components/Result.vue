@@ -1,6 +1,7 @@
 <script>
-import Loading from '@/components/Loading'
+import Loading from '@/components/Loading';
 import axios from 'axios';
+import {mapActions, mapState} from 'vuex';
 
 export default {
     data () {
@@ -13,24 +14,22 @@ export default {
         Loading
     },
     methods: {
+        ...mapActions({
+            postSongs: 'postSongs'
+        }),
         getYear(dateStr) {
-            const date = new Date(dateStr)
-            return date.getFullYear()
+            const date = new Date(dateStr);
+            return date.getFullYear();
         },
         clickPost (postData, id, url) {
-            for (let key in postData) {
-                if (id == postData[key].trackId && url == postData[key].trackViewUrl) {
-                    this.params = postData[key];
-                }
-            }
-
             if (confirm('登録しますか？')) {
-                const data = axios.post('http://localhost:8888/api/song', this.params).then((res) => {
-                    console.log(res);
-                }).catch((err) => {
-                    alert("登録できません");
-                });
-                alert('登録しました。');
+                for (let key in postData) {
+                    if (id == postData[key].trackId && url == postData[key].trackViewUrl) {
+                        this.params = postData[key];
+                    }
+                }
+                // 登録処理実行
+                this.postSongs(this.params);
             }
         }
     }

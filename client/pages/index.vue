@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Search from '@/components/Search'
-import List from '@/components/List'
-import Result from '@/components/Result'
+import Search from '@/components/Search';
+import List from '@/components/List';
+import Result from '@/components/Result';
 
 export default {
     data() {
