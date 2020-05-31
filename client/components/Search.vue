@@ -17,18 +17,11 @@ export default {
         ...mapActions({
             searchGetSongs: 'searchGetSongs'
         }),
-        async clickSearch() {
+        clickSearch() {
             this.$emit('loadStart');
             this.searchGetSongs(this.name);
             this.$emit('loadComplete', { results: this.items });
         }
-        /*async exe() {
-            this.$emit('loadStart')
-            const { data } = await axios.get(
-                `//itunes.apple.com/search?term=${this.term}&country=jp&entity=musicVideo`
-            )
-            this.$emit('loadComplete', { results: data.results })
-        }*/
     }
 }
 </script>
