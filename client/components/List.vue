@@ -1,3 +1,48 @@
+<template>
+    <div>
+        <ul class="list">
+            <li class="item" v-for="param of params" :key="param.id">
+                <div class="item-inner">
+                        <div class="checkbox">
+                        <button @click="clickDelete(params, param.id)">削除</button>
+                    </div>
+                    <div class="photo">
+                        <img
+                            class="photo-img"
+                            :src="param.song_image_url"
+                            :alt="param.trackName"
+                        />
+                    </div>
+                    <div class="content">
+                        <p>
+                            <a
+                                class="track"
+                                :href="param.song_url"
+                                target="_blank"
+                                >{{ param.song_name }}</a
+                            >
+                        </p>
+                        <p>
+                            <a
+                                class="artist"
+                                :href="param.artist_url"
+                                target="_blank"
+                                >{{ param.artist_name }}</a
+                            >
+                        </p>
+                        <div class="data">
+                            {{ param.genre }} / ￥{{
+                                param.price
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <Loading class="loading" v-show="loadProgress" />
+    </div>
+</template>
+
 <script>
 import Loading from '@/components/Loading'
 import axios from 'axios';
@@ -44,51 +89,6 @@ export default {
     }
 }
 </script>
-
-<template>
-    <div>
-        <ul class="list">
-            <li class="item" v-for="param of params" :key="param.id">
-                <div class="item-inner">
-                        <div class="checkbox">
-                        <button @click="clickDelete(params, param.id)">削除</button>
-                    </div>
-                    <div class="photo">
-                        <img
-                            class="photo-img"
-                            :src="param.song_image_url"
-                            :alt="param.trackName"
-                        />
-                    </div>
-                    <div class="content">
-                        <p>
-                            <a
-                                class="track"
-                                :href="param.song_url"
-                                target="_blank"
-                                >{{ param.song_name }}</a
-                            >
-                        </p>
-                        <p>
-                            <a
-                                class="artist"
-                                :href="param.artist_url"
-                                target="_blank"
-                                >{{ param.artist_name }}</a
-                            >
-                        </p>
-                        <div class="data">
-                            {{ param.genre }} / ￥{{
-                                param.price
-                            }}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <Loading class="loading" v-show="loadProgress" />
-    </div>
-</template>
 
 <style scoped>
 .item {

@@ -1,41 +1,3 @@
-<script>
-import Loading from '@/components/Loading';
-import axios from 'axios';
-import {mapActions, mapState} from 'vuex';
-
-export default {
-    data () {
-        return {
-            params: []
-        }
-    },
-    props: ['items', 'loadProgress'],
-    components: {
-        Loading
-    },
-    methods: {
-        ...mapActions({
-            postSongs: 'postSongs'
-        }),
-        getYear(dateStr) {
-            const date = new Date(dateStr);
-            return date.getFullYear();
-        },
-        clickPost (postData, id, url) {
-            if (confirm('登録しますか？')) {
-                for (let key in postData) {
-                    if (id == postData[key].trackId && url == postData[key].trackViewUrl) {
-                        this.params = postData[key];
-                    }
-                }
-                // 登録処理実行
-                this.postSongs(this.params);
-            }
-        }
-    }
-}
-</script>
-
 <template>
     <div>
         <ul class="list">
@@ -81,6 +43,44 @@ export default {
         <Loading class="loading" v-show="loadProgress" />
     </div>
 </template>
+
+<script>
+import Loading from '@/components/Loading';
+import axios from 'axios';
+import {mapActions, mapState} from 'vuex';
+
+export default {
+    data () {
+        return {
+            params: []
+        }
+    },
+    props: ['items', 'loadProgress'],
+    components: {
+        Loading
+    },
+    methods: {
+        ...mapActions({
+            postSongs: 'postSongs'
+        }),
+        getYear(dateStr) {
+            const date = new Date(dateStr);
+            return date.getFullYear();
+        },
+        clickPost (postData, id, url) {
+            if (confirm('登録しますか？')) {
+                for (let key in postData) {
+                    if (id == postData[key].trackId && url == postData[key].trackViewUrl) {
+                        this.params = postData[key];
+                    }
+                }
+                // 登録処理実行
+                this.postSongs(this.params);
+            }
+        }
+    }
+}
+</script>
 
 <style scoped>
 .item {
