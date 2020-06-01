@@ -2,17 +2,16 @@
     <div class="root">
         <Search
             class="search"
-            @onLoadStart="onLoadStart"
+            @loadStart="onLoadStart"
             @loadComplete="onLoadComplete"
         />
-        <List :loadProgress="loadProgress" />
+        <Result :items="items" :loadProgress="loadProgress" />
     </div>
 </template>
 
 <script>
 import Search from '@/components/Search';
-import List from '@/components/List';
-import Result from '@/components/Result';
+import Result from "@/components/Result";
 
 export default {
     data() {
@@ -23,17 +22,18 @@ export default {
     },
     methods: {
         onLoadStart() {
-            this.loadProgress = true;
+            this.loadProgress = true
         },
         onLoadComplete({ results }) {
+
+            this.loadProgress = false;
             this.items = results;
-            this.loadProgress = true;
             this.$router.push('/result');
         }
     },
     components: {
         Search,
-        List
+        Result
     }
 }
 </script>

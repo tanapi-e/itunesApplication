@@ -1,3 +1,12 @@
+<template>
+    <div>
+        <div class="container">
+            <input class="text" type="text" v-model="name" @keyup.enter="clickSearch" />
+            <input class="submit" type="submit" value="Search" @click="clickSearch" />
+        </div>
+    </div>
+</template>
+
 <script>
 import axios from 'axios';
 import {mapActions, mapState} from 'vuex';
@@ -25,15 +34,6 @@ export default {
     }
 }
 </script>
-
-<template>
-    <div>
-        <div class="container">
-            <input class="text" type="text" v-model="name" @keyup.enter="clickSearch" />
-            <input class="submit" type="submit" value="Search" @click="clickSearch" />
-        </div>
-    </div>
-</template>
 
 <style scoped>
 .container {

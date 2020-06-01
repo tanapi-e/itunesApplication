@@ -27,7 +27,7 @@ export const actions = {
             })
             .catch(err => {
                 alert('削除できませんでした。');
-            })
+            });
     },
     // 検索結果一覧取得
     async searchGetSongs({ commit }, name) {
@@ -38,7 +38,7 @@ export const actions = {
             .then(res => {
                 commit('searchSetSongs', res);
             })
-            .catch(err => {})
+            .catch(err => {});
     },
     // 楽曲登録
     async postSongs({ commit }, postData) {
