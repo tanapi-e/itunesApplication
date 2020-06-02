@@ -19,4 +19,8 @@ class Song extends Model
     {
         return Song::create($formData);
     }
+
+    public function getPost(int $id) {
+        return Song::find($id);
+    }
 }

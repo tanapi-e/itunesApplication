@@ -26,6 +26,25 @@ class SongController extends Controller
     }
 
     /**
+     * 一件取得
+     *
+     * @param Request $request
+     * @param Song $post
+     * @param int $id
+     * @return Response
+     */
+    public function show(Request $request, Song $post, int $id)
+    {
+        $postInfo = $post->getPost($id);
+
+        $data = [
+            'post' => $postInfo
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    /**
      * songsテーブルへ保存
      *
      * @param  Request  $request
