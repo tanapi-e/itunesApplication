@@ -19,4 +19,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/song', 'Api\SongController');
-//Route::get('/song', 'Api\SongController@index');
