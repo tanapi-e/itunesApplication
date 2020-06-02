@@ -10,7 +10,8 @@ class Song extends Model
     protected $fillable = [
         'song_name', 'artist_name', 'song_url', 'artist_url', 'genre', 'price', 'song_image_url'
     ];
-    public function getAllPosts($orderBy = ['id', 'DESC'])
+
+    public function getAllPosts(array $orderBy)
     {
         return Song::orderBy($orderBy[0], $orderBy[1])->get()->all();
     }
