@@ -1,7 +1,8 @@
 import Vuex from 'vuex';
 
 export const state = () => ({
-    lists: []
+    lists: [],
+    errors: []
 })
 
 export const actions = {
@@ -51,7 +52,25 @@ export const actions = {
             .catch(err => {
                 alert('登録できません');
             });
-    }
+    },
+        // ログイン
+    async getLoginUser({ commit }, postParams) {
+        const res = await this.$axios
+            .$get(`http://localhost:8888/api/login?email=${postParams[0].email}&password=${postParams[0].password}`)
+            .then(res => {
+                console.log(postParams[0].password)
+                commit('setLoginUser', res);
+            })
+            .catch(err => {
+                // エラーメッセージをオブジェクトに格納
+                const postErr = {
+                    emailErr: err.response.data.errors.email,
+                    passErr: err.response.data.errors.password
+                };
+
+                commit('setErrors', postErr)
+            })
+    },
 }
 
 export const mutations = {
@@ -66,5 +85,11 @@ export const mutations = {
     },
     postSongs() {
         state.lists;
+    },
+    setLoginUser(state, data) {
+        state.lists = data;
+    },
+    setErrors(state, data) {
+        state.errors = data
     }
 }
