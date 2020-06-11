@@ -33,9 +33,9 @@ class SongController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show(Request $request, Song $post, int $id)
+    public function show(Request $request, Song $post, int $user_id)
     {
-        $postInfo = $post->getPost($id);
+        $postInfo = $post->getPost($user_id);
 
         $data = [
             'post' => $postInfo
