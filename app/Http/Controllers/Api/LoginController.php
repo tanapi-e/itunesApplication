@@ -13,11 +13,9 @@ class LoginController extends Controller
     /**
      * ログイン情報取得
      * @param  User $post
-     * @param  string  $email
-     * @param  string $password
+     * @param FormRequest $request
      * @return Response
      */
-    //public function show(User $post, string $email, string $password)
     public function show(User $post, FormSendRequest $request)
     {
         // メールアドレスとパスワードを取得
