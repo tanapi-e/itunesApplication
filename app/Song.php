@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 ini_set('display_errors', 1);
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Song extends Model
 {
     protected $fillable = [
-        'song_name', 'artist_name', 'song_url', 'artist_url', 'genre', 'price', 'song_image_url'
+        'song_name', 'artist_name', 'song_url', 'artist_url', 'genre', 'price', 'song_image_url', 'user_id'
     ];
 
     public function getAllPosts(array $orderBy)
@@ -21,7 +22,8 @@ class Song extends Model
         return Song::create($formData);
     }
 
-    public function getPost(int $user_id) {
-        return Song::where("user_id", $user_id);
+    public function getPost(string $user_id)
+    {
+        return Song::where("user_id", $user_id)->get();
     }
 }

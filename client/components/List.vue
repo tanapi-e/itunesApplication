@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul class="list">
-            <li class="item" v-for="param of params" :key="param.id">
+            <li class="item" v-if="params.length" v-for="param of params" :key="param.id">
                 <div class="item-inner">
                         <div class="checkbox">
                         <button @click="clickDelete(params, param.id)">削除</button>
@@ -38,6 +38,9 @@
                     </div>
                 </div>
             </li>
+            <li v-else>
+                まだ登録されていません。
+            </li>
         </ul>
         <Loading class="loading" v-show="loadProgress" />
     </div>
@@ -64,7 +67,7 @@ export default {
         })
     },
     mounted() {
-        this.getSongs();
+        this.getSongs(this.$route.query.user_id);
     },
     methods: {
         ...mapActions({

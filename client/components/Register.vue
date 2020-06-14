@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="form-title">Login</p>
+        <p class="form-title">会員登録</p>
         <p class="text">Email</p>
         <p class="mail">
             <input type="email" v-model="email" />
@@ -12,10 +12,10 @@
             <span class="validate" v-for="item in errors.passErr">{{item}}</span>
         </p>
         <p class="check">
-            <a @click="$router.push('/register')">会員登録</a>
+            <a @click="$router.push('/login')">ログイン</a>
         </p>
         <p class="submit">
-            <input type="submit" value="Login" @click="clickLogin" />
+            <input type="submit" value="会員登録" @click="clickRegister" />
         </p>
     </div>
 </template>
@@ -27,9 +27,9 @@ import {mapActions, mapState} from 'vuex';
 export default {
     data() {
         return {
+            name: '',
             email: '',
-            password: '',
-            params: []
+            password: ''
         }
     },
     computed: {
@@ -39,21 +39,19 @@ export default {
         })
     },
     methods: {
-        clickLogin() {
-            // paramsに値が存在する時
-            if (this.params.length > 0) {
-                // 中身を空にする
-                this.params = [];
-            }
-
-            // クエリストリング設定
-            this.params.push({
+        ...mapActions({
+            postRegister: 'postRegister'
+        }),
+        clickRegister() {
+            // 登録項目をオブジェクトに設定
+            const postData = {
+                name: this.name,
                 email: this.email,
                 password: this.password
-            });
+            };
 
-            this.$store.dispatch('getLoginUser', this.params);
-            this.$store.commit('setLoginUser', this.users);
+            // 登録処理実行
+            this.postRegister(postData);
         }
     }
 }
@@ -69,15 +67,13 @@ text {
     text-align: center;
 }
 
-.mail,
-.pass {
+.name, .mail, .pass {
     margin-bottom: 20px;
 
     text-align: center;
 }
 
-input[type='email'],
-input[type='password'] {
+input[type='text'], input[type='email'], input[type='password'] {
     width: 300px;
     padding: 4px;
     font-size: 14px;
