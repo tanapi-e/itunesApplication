@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('/song', 'Api\SongController');
 Route::get('/login', 'Api\LoginController@show');
+Route::post('/register', 'Api\RegisterController@register');
